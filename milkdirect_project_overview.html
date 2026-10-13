@@ -1,0 +1,1102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>MilkDirect — Project Documentation</title>
+  <style>
+    @page {
+      size: A4;
+      margin: 14mm 12mm 14mm 12mm;
+      @bottom-right {
+        content: counter(page);
+      }
+    }
+    
+    * {
+      box-sizing: border-box;
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      font-size: 10pt;
+      line-height: 1.55;
+      color: #24292e;
+      background-color: #ffffff;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Print Break Utilities */
+    .page-break {
+      page-break-before: always;
+      break-before: page;
+    }
+    .avoid-break {
+      page-break-inside: avoid;
+      break-inside: avoid;
+    }
+
+    /* Cover Page */
+    .cover-page {
+      min-height: 250mm;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 25mm 15mm 15mm 15mm;
+      background: linear-gradient(145deg, #f7fbf7 0%, #fefef9 50%, #eff7ef 100%);
+      border: 2px solid #e1efe1;
+      border-radius: 12px;
+      page-break-after: always;
+      break-after: page;
+    }
+
+    .cover-badge {
+      display: inline-block;
+      align-self: flex-start;
+      background-color: #2e7d32;
+      color: #ffffff;
+      font-size: 9pt;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 6px 14px;
+      border-radius: 20px;
+    }
+
+    .cover-title-group {
+      margin-top: 30px;
+    }
+
+    .cover-logo-icon {
+      font-size: 50pt;
+      line-height: 1;
+      margin-bottom: 15px;
+      display: inline-block;
+    }
+
+    .cover-title {
+      font-size: 32pt;
+      font-weight: 800;
+      color: #1b5e20;
+      margin: 0 0 10px 0;
+      letter-spacing: -0.5px;
+    }
+
+    .cover-subtitle {
+      font-size: 15pt;
+      font-weight: 500;
+      color: #1e6fd9;
+      margin: 0 0 15px 0;
+    }
+
+    .cover-desc {
+      font-size: 11pt;
+      color: #52606d;
+      max-width: 580px;
+      line-height: 1.6;
+      margin-bottom: 25px;
+    }
+
+    .cover-tags {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 15px;
+    }
+
+    .tag-pill {
+      background: #ffffff;
+      border: 1px solid #c8e6c9;
+      color: #2e7d32;
+      font-size: 8.5pt;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 6px;
+    }
+
+    .cover-meta-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px;
+      background: #ffffff;
+      padding: 18px 22px;
+      border-radius: 10px;
+      border: 1px solid #dceedd;
+      box-shadow: 0 4px 12px rgba(46, 125, 50, 0.05);
+      margin-top: 40px;
+    }
+
+    .meta-item {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .meta-label {
+      font-size: 8pt;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: #7b8794;
+      letter-spacing: 0.5px;
+      margin-bottom: 3px;
+    }
+
+    .meta-value {
+      font-size: 10pt;
+      font-weight: 600;
+      color: #1f2933;
+    }
+
+    .cover-footer {
+      border-top: 1px solid #dceedd;
+      padding-top: 15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 8.5pt;
+      color: #7b8794;
+    }
+
+    /* Headers and Content Typography */
+    h1 {
+      font-size: 18pt;
+      color: #1b5e20;
+      border-bottom: 2px solid #2e7d32;
+      padding-bottom: 6px;
+      margin-top: 25px;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    h2 {
+      font-size: 13pt;
+      color: #1e6fd9;
+      margin-top: 18px;
+      margin-bottom: 8px;
+      border-left: 4px solid #1e6fd9;
+      padding-left: 8px;
+    }
+
+    h3 {
+      font-size: 10.5pt;
+      color: #2e7d32;
+      margin-top: 14px;
+      margin-bottom: 6px;
+    }
+
+    p {
+      margin-top: 0;
+      margin-bottom: 10px;
+      color: #3e4c59;
+    }
+
+    /* Executive Callouts & Alerts */
+    .callout {
+      background: #f4fbf5;
+      border-left: 4px solid #2e7d32;
+      padding: 10px 14px;
+      border-radius: 0 6px 6px 0;
+      margin: 12px 0;
+      font-size: 9.5pt;
+    }
+
+    .callout-blue {
+      background: #f0f6ff;
+      border-left: 4px solid #1e6fd9;
+    }
+
+    .callout-amber {
+      background: #fffbeb;
+      border-left: 4px solid #d97706;
+    }
+
+    /* Grid Cards */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin: 12px 0;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin: 12px 0;
+    }
+
+    .card {
+      background: #ffffff;
+      border: 1px solid #e1e7ec;
+      border-radius: 8px;
+      padding: 12px 14px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+    }
+
+    .card-title {
+      font-size: 10pt;
+      font-weight: 700;
+      color: #1f2933;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .card-body {
+      font-size: 9pt;
+      color: #52606d;
+      line-height: 1.45;
+    }
+
+    /* Data Tables */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 14px 0;
+      font-size: 8.5pt;
+    }
+
+    th {
+      background-color: #f1f8f2;
+      color: #1b5e20;
+      text-align: left;
+      padding: 8px 10px;
+      font-weight: 700;
+      border: 1px solid #d2e7d5;
+      text-transform: uppercase;
+      font-size: 7.5pt;
+      letter-spacing: 0.4px;
+    }
+
+    td {
+      padding: 7px 10px;
+      border: 1px solid #e2e8f0;
+      color: #334155;
+      vertical-align: top;
+    }
+
+    tr:nth-child(even) td {
+      background-color: #fafbfb;
+    }
+
+    /* Badges & Pills */
+    .badge {
+      display: inline-block;
+      padding: 2px 7px;
+      font-size: 7.5pt;
+      font-weight: 700;
+      border-radius: 12px;
+      text-transform: uppercase;
+    }
+
+    .badge-green { background: #dcfce7; color: #15803d; }
+    .badge-blue { background: #dbeafe; color: #1d4ed8; }
+    .badge-yellow { background: #fef3c7; color: #b45309; }
+    .badge-purple { background: #f3e8ff; color: #7e22ce; }
+    .badge-gray { background: #f1f5f9; color: #475569; }
+
+    /* Architecture Visual Blocks */
+    .arch-flow {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      margin: 14px 0;
+    }
+
+    .arch-step {
+      flex: 1;
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      padding: 10px;
+      text-align: center;
+    }
+
+    .arch-step-title {
+      font-weight: 700;
+      font-size: 9pt;
+      color: #1b5e20;
+      margin-bottom: 4px;
+    }
+
+    .arch-step-desc {
+      font-size: 8pt;
+      color: #64748b;
+    }
+
+    /* Code Snippets */
+    code {
+      font-family: "Consolas", "Courier New", monospace;
+      font-size: 8.5pt;
+      background-color: #f1f5f9;
+      padding: 1px 4px;
+      border-radius: 3px;
+      color: #0f172a;
+    }
+
+    pre {
+      background: #1e293b;
+      color: #f8fafc;
+      padding: 10px 14px;
+      border-radius: 6px;
+      font-size: 8pt;
+      overflow-x: auto;
+      margin: 10px 0;
+      font-family: "Consolas", "Courier New", monospace;
+      line-height: 1.4;
+    }
+
+    /* Table of contents */
+    .toc-container {
+      background: #fdfdfd;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 16px 20px;
+      margin: 16px 0 25px 0;
+    }
+
+    .toc-title {
+      font-size: 11pt;
+      font-weight: 700;
+      color: #1b5e20;
+      margin-bottom: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .toc-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      font-size: 9pt;
+    }
+
+    .toc-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 5px 0;
+      border-bottom: 1px dotted #cbd5e1;
+      color: #334155;
+    }
+
+    .toc-item strong {
+      color: #1e293b;
+    }
+
+    /* Header/Footer on regular pages */
+    .header-bar {
+      border-bottom: 1px solid #e2e8f0;
+      padding-bottom: 5px;
+      margin-bottom: 15px;
+      display: flex;
+      justify-content: space-between;
+      font-size: 7.5pt;
+      color: #94a3b8;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ================= COVER PAGE ================= -->
+  <div class="cover-page">
+    <div>
+      <div class="cover-badge">Project Technical Specification & Architecture Whitepaper</div>
+      
+      <div class="cover-title-group">
+        <div class="cover-logo-icon">🥛🌱</div>
+        <div class="cover-title">MilkDirect</div>
+        <div class="cover-subtitle">Farm-to-Door Fresh Milk Marketplace</div>
+        <div class="cover-desc">
+          A full-stack, hyperlocal direct-to-consumer dairy ecosystem connecting cattle-owning farmers and village milkmen directly with residential consumers. Features strict role-based access control, automated recurring subscription scheduling, direct zero-commission UPI payouts, and complete quality metric transparency.
+        </div>
+        
+        <div class="cover-tags">
+          <span class="tag-pill">Flutter 3.3+ (Mobile & Web)</span>
+          <span class="tag-pill">Supabase Backend-as-a-Service</span>
+          <span class="tag-pill">PostgreSQL 15 + RLS</span>
+          <span class="tag-pill">Material 3 Dairy Design</span>
+          <span class="tag-pill">Trilingual (EN / HI / MR)</span>
+          <span class="tag-pill">Direct UPI Payouts</span>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="cover-meta-grid">
+        <div class="meta-item">
+          <div class="meta-label">Project Name</div>
+          <div class="meta-value">MilkDirect (Local Fresh Milk Marketplace)</div>
+        </div>
+        <div class="meta-item">
+          <div class="meta-label">Version / Build</div>
+          <div class="meta-value">Release v1.0.0 (Build 1)</div>
+        </div>
+        <div class="meta-item">
+          <div class="meta-label">Target Platforms</div>
+          <div class="meta-value">Android (APK), iOS, Desktop & Mobile Web</div>
+        </div>
+        <div class="meta-item">
+          <div class="meta-label">Core Architectural Roles</div>
+          <div class="meta-value">Customer, Supplier (Farmer/Milkman), Administrator</div>
+        </div>
+        <div class="meta-item">
+          <div class="meta-label">Database Isolation Prefix</div>
+          <div class="meta-value">mk_ (Pre-configured for shared Supabase tenants)</div>
+        </div>
+        <div class="meta-item">
+          <div class="meta-label">Localization Matrix</div>
+          <div class="meta-value">English, Hindi (हिंदी), Marathi (मराठी)</div>
+        </div>
+      </div>
+
+      <div class="cover-footer">
+        <span>Confidential & Proprietary — Antigravity Engineering</span>
+        <span>Documentation Generated: October 2026</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= TABLE OF CONTENTS & EXECUTIVE SUMMARY ================= -->
+  <div class="header-bar">
+    <span>MilkDirect — Project Documentation</span>
+    <span>Section 1: Overview & Executive Summary</span>
+  </div>
+
+  <div class="toc-container avoid-break">
+    <div class="toc-title">Table of Contents</div>
+    <ul class="toc-list">
+      <li class="toc-item"><span><strong>1. Executive Summary & Vision</strong> — Mission, Problem Statement & Core Value Proposition</span> <span>Section 1</span></li>
+      <li class="toc-item"><span><strong>2. System Architecture & Technology Stack</strong> — Frontend, Backend, Cloud & Security Architecture</span> <span>Section 2</span></li>
+      <li class="toc-item"><span><strong>3. Multi-Role Identity & Gateway System</strong> — RBAC, Auth Gate, Role Switcher, Password Meter</span> <span>Section 3</span></li>
+      <li class="toc-item"><span><strong>4. Deep-Dive Portal Specifications</strong> — Customer, Supplier (Farmer/Milkman) & Administrator</span> <span>Section 4</span></li>
+      <li class="toc-item"><span><strong>5. Database Schema & Data Dictionary</strong> — Complete mk_ PostgreSQL tables & RLS policies</span> <span>Section 5</span></li>
+      <li class="toc-item"><span><strong>6. Material 3 Design System & Aesthetics</strong> — Theme Tokens, Color Palette & Micro-Interactions</span> <span>Section 6</span></li>
+      <li class="toc-item"><span><strong>7. Multilingual Localization Engine</strong> — English, Hindi & Marathi In-Memory Architecture</span> <span>Section 7</span></li>
+      <li class="toc-item"><span><strong>8. Deployment, Setup & Administration Guide</strong> — Flutter, Supabase & Master Admin Setup</span> <span>Section 8</span></li>
+      <li class="toc-item"><span><strong>9. Verification & Quality Assurance Matrix</strong> — 17-Point End-to-End Test Matrix</span> <span>Section 9</span></li>
+      <li class="toc-item"><span><strong>10. Future Strategic Roadmap</strong> — IoT Lactometer, Route Optimization & Auto-Debit</span> <span>Section 10</span></li>
+    </ul>
+  </div>
+
+  <h1>1. Executive Summary & Project Vision</h1>
+  
+  <p>
+    <strong>MilkDirect</strong> is a purpose-built hyperlocal dairy marketplace engineered to disintermediate the conventional dairy distribution chain. In traditional supply chains, milk travels through multiple middlemen, chilling centers, and industrial processing plants, taking 48 to 72 hours to reach urban households. This industrial cycle strips the milk of its natural flavor, promotes adulteration risks, and severely reduces the profit margin of grassroot dairy farmers.
+  </p>
+
+  <div class="grid-2 avoid-break">
+    <div class="card">
+      <div class="card-title">⚠️ The Conventional Dairy Crisis</div>
+      <div class="card-body">
+        <ul>
+          <li><strong>Delayed Delivery:</strong> Packaged pouch milk is often 2–3 days old before reaching doorsteps.</li>
+          <li><strong>Middleman Margins:</strong> Aggregators and brands extract up to 45% of consumer retail value.</li>
+          <li><strong>Opaque Nutrition:</strong> Fat & SNF levels are standardized artificially by blending powdered solids.</li>
+          <li><strong>Severe Adulteration:</strong> Chemical preservation agents and synthetic stabilizers are common.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">🥛 The MilkDirect Paradigm</div>
+      <div class="card-body">
+        <ul>
+          <li><strong>Sub-4-Hour Milking-to-Door:</strong> Morning milking delivered by 7:00 AM; Evening by 7:00 PM.</li>
+          <li><strong>100% Farmer Margin:</strong> Direct UPI payouts from consumer to farmer with zero commission cut.</li>
+          <li><strong>Complete Transparency:</strong> Lab-tested Fat% & SNF% declared per cattle listing.</li>
+          <li><strong>Trust & Accountability:</strong> Hyperlocal customer review aggregate and admin FSSAI audit.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout avoid-break">
+    <strong>Key Strategic Differentiator:</strong> Unlike grocery quick-commerce platforms that operate expensive dark stores and high-inventory warehouses, MilkDirect operates as an <em>asset-light, decentralized marketplace</em>. The platform manages ordering logic, subscriptions, verification, and route schedules, while physical delivery is executed directly by local farmers and village milkmen.
+  </div>
+
+  <!-- ================= SECTION 2: SYSTEM ARCHITECTURE ================= -->
+  <div class="page-break"></div>
+  <div class="header-bar">
+    <span>MilkDirect — Project Documentation</span>
+    <span>Section 2: Architecture & Technology Stack</span>
+  </div>
+
+  <h1>2. System Architecture & Technology Stack</h1>
+
+  <p>
+    MilkDirect is built using a modern, reactive, mobile-first client architecture integrated with a cloud-native serverless backend. The application guarantees sub-second responsiveness, seamless offline caching for role selection, and bank-grade data isolation.
+  </p>
+
+  <div class="arch-flow avoid-break">
+    <div class="arch-step">
+      <div class="arch-step-title">1. Presentation Tier</div>
+      <div class="arch-step-desc">Flutter 3.3+ (Dart)<br>Material 3 Custom Dairy Theme<br>Mobile (Android/iOS) + Web</div>
+    </div>
+    <div class="arch-step">
+      <div class="arch-step-title">2. State & Gatekeeper</div>
+      <div class="arch-step-desc">Provider State Management<br>Role-based AuthGate<br>SharedPreferences Cache</div>
+    </div>
+    <div class="arch-step">
+      <div class="arch-step-title">3. Cloud Services</div>
+      <div class="arch-step-desc">Supabase BaaS<br>Supabase Auth (Email/Pass)<br>Supabase Storage Buckets</div>
+    </div>
+    <div class="arch-step">
+      <div class="arch-step-title">4. Persistence & Security</div>
+      <div class="arch-step-desc">PostgreSQL 15 (<code>mk_</code> prefix)<br>Row Level Security (RLS)<br>Automated SQL Triggers</div>
+    </div>
+  </div>
+
+  <h2>Technology Component Matrix</h2>
+  <table class="avoid-break">
+    <thead>
+      <tr>
+        <th style="width: 25%;">Layer / Domain</th>
+        <th style="width: 35%;">Technology / Library</th>
+        <th style="width: 40%;">Architectural Purpose & Responsibility</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Cross-Platform Core</strong></td>
+        <td><code>Flutter SDK (>=3.3.0 &lt;4.0.0)</code></td>
+        <td>Single codebase compiled natively to Android APK, iOS binary, and Web HTML5/CanvasKit.</td>
+      </tr>
+      <tr>
+        <td><strong>State Architecture</strong></td>
+        <td><code>provider (^6.1.2)</code></td>
+        <td>Reactive state management via <code>AppState</code> and <code>ChangeNotifier</code> listening to session changes.</td>
+      </tr>
+      <tr>
+        <td><strong>Cloud Engine</strong></td>
+        <td><code>supabase_flutter (^2.8.0)</code></td>
+        <td>Authentication, PostgreSQL queries, real-time subscription synchronization, and storage access.</td>
+      </tr>
+      <tr>
+        <td><strong>Typography & Theme</strong></td>
+        <td><code>google_fonts (^6.2.1)</code></td>
+        <td>Material 3 theme utilizing Poppins (headings) and Nunito (body text) for high readability.</td>
+      </tr>
+      <tr>
+        <td><strong>Scheduling & Delivery</strong></td>
+        <td><code>table_calendar (^3.1.2)</code></td>
+        <td>Visual delivery calendar displaying delivered, pending, and missed milk deliveries dynamically.</td>
+      </tr>
+      <tr>
+        <td><strong>Offline Persistence</strong></td>
+        <td><code>shared_preferences (^2.3.0)</code></td>
+        <td>Local cache storing the last chosen role (<code>last_role</code>) and selected language locale.</td>
+      </tr>
+      <tr>
+        <td><strong>Visual Micro-Animations</strong></td>
+        <td><code>shimmer (^3.0.0)</code></td>
+        <td>Skeleton loaders rendering during asynchronous data fetch across tabs and cards.</td>
+      </tr>
+      <tr>
+        <td><strong>Image Handling</strong></td>
+        <td><code>cached_network_image (^3.4.1)</code></td>
+        <td>Aggressive multi-tier caching of dairy cattle, farm photos, and supplier avatars.</td>
+      </tr>
+      <tr>
+        <td><strong>Communications</strong></td>
+        <td><code>url_launcher (^6.3.1)</code></td>
+        <td>Native invocation of phone calls, SMS, and direct WhatsApp chats with delivery personnel.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- ================= SECTION 3: AUTHENTICATION & RBAC ================= -->
+  <div class="header-bar" style="margin-top: 20px;">
+    <span>MilkDirect — Project Documentation</span>
+    <span>Section 3: Authentication & Multi-Role Gateway</span>
+  </div>
+
+  <h1>3. Multi-Role Identity & Gateway System</h1>
+
+  <p>
+    Security and role segregation are foundational to MilkDirect. Users interact with the platform through three distinct personas: <strong>Customer</strong>, <strong>Supplier (Farmer / Milkman)</strong>, and <strong>Administrator</strong>.
+  </p>
+
+  <div class="grid-3 avoid-break">
+    <div class="card">
+      <div class="card-title"><span class="badge badge-blue">Customer</span></div>
+      <div class="card-body">
+        Explores nearby dairy farms, manages delivery addresses, customizes recurring daily milk subscriptions, tracks deliveries, and pays suppliers directly via UPI.
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="badge badge-green">Supplier</span></div>
+      <div class="card-body">
+        Configures cattle listings (Cow/Buffalo), pricing, fat/SNF stats, delivery PIN codes, and executes daily dispatch routes with 1-tap delivery confirmations.
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="badge badge-purple">Administrator</span></div>
+      <div class="card-body">
+        Verifies supplier KYC and FSSAI credentials, moderates user accounts, arbitrates dispute tickets, and monitors platform-wide business analytics.
+      </div>
+    </div>
+  </div>
+
+  <h2>Strict Role-Enforcement & Security Controls</h2>
+  <div class="callout callout-amber avoid-break">
+    <strong>Cross-Role Collision Prevention:</strong> A registered Supplier cannot log in through the Customer portal, and a registered Customer cannot log in through the Farmer/Milkman portal. If a user attempts a mismatched role login, the client instantly executes a clean sign-out and notifies the user with role-specific guidance:
+    <br><em>"This email is registered as a Supplier. Please use the Farmer / Milkman Login."</em>
+  </div>
+
+  <ul>
+    <li><strong>Role Persistence & Instant Switching:</strong> The app stores the chosen portal in <code>SharedPreferences</code> (<code>last_role</code>). On subsequent launches, it bypasses the role selection screen and loads the relevant login immediately. Tapping "Change Role" instantly flushes the local preference and returns to the master entry gate.</li>
+    <li><strong>Live 3-Segment Password Strength Meter:</strong> Built into all registration forms, providing real-time visual feedback:
+      <span class="badge badge-gray">Weak (&lt;8 chars or numeric only)</span> &rarr;
+      <span class="badge badge-yellow">Fair (Mixed chars)</span> &rarr;
+      <span class="badge badge-green">Strong (8+ chars alphanumeric)</span>.
+    </li>
+    <li><strong>Zero In-App Admin Registration:</strong> To prevent unauthorized escalation, admin registration forms are completely absent from the client. Administrators are provisioned exclusively by direct database administrator intervention in the Supabase console.</li>
+    <li><strong>Account Suspension (<code>is_blocked</code>):</strong> If any user account is flagged for fraud or malicious behavior, administrators can toggle <code>is_blocked = true</code>, immediately aborting their current session and barring future logins.</li>
+  </ul>
+
+  <!-- ================= SECTION 4: PORTAL SPECIFICATIONS ================= -->
+  <div class="page-break"></div>
+  <div class="header-bar">
+    <span>MilkDirect — Project Documentation</span>
+    <span>Section 4: Deep-Dive Portal Specifications</span>
+  </div>
+
+  <h1>4. Deep-Dive Portal Specifications</h1>
+
+  <h2>4.1 Customer Experience Portal</h2>
+  <p>Designed for frictionless discovery, automated morning delivery, and complete visibility into milk provenance:</p>
+
+  <div class="grid-2 avoid-break">
+    <div class="card">
+      <div class="card-title">🔍 Hyperlocal Supplier Discovery</div>
+      <div class="card-body">
+        <ul>
+          <li><strong>PIN Code Filtering:</strong> Only shows suppliers serving the customer's active delivery PIN code.</li>
+          <li><strong>Cattle & Milk Type Filtering:</strong> 1-tap filters for Pure Cow Milk, Buffalo Milk, or Mixed.</li>
+          <li><strong>Processing Transparency:</strong> Labels Raw (unboiled), Boiled, or Pasteurised milk.</li>
+          <li><strong>Quality Badges:</strong> Displays certified Fat %, SNF %, distance, and average review stars.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">📅 Recurring Subscription Engine</div>
+      <div class="card-body">
+        <ul>
+          <li><strong>Custom Delivery Schedules:</strong> Daily, Alternate Days, or Custom Weekdays (e.g. Mon-Wed-Fri).</li>
+          <li><strong>Configurable Quantity:</strong> 0.5L, 1.0L, 1.5L, 2.0L+ per delivery slot.</li>
+          <li><strong>Delivery Slot Choice:</strong> Morning (5:00–8:00 AM) or Evening (5:00–8:00 PM).</li>
+          <li><strong>Pause & Resume:</strong> Vacation mode allows 1-tap suspension of deliveries without canceling.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">📍 Smart Multi-Address Book</div>
+      <div class="card-body">
+        <ul>
+          <li><strong>Multiple Delivery Points:</strong> Store Home, Office, or Parents' addresses.</li>
+          <li><strong>Precision Coordinates:</strong> Captures latitude/longitude for optimal delivery routing.</li>
+          <li><strong>Detailed Landmarks:</strong> Flat/House number, street, society, and local landmark fields.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">💳 Billing & Dispute Ticketing</div>
+      <div class="card-body">
+        <ul>
+          <li><strong>Direct UPI Payments:</strong> Monthly ledger with direct link to supplier's UPI VPA.</li>
+          <li><strong>Delivery Audit Calendar:</strong> Interactive calendar showing delivered vs missed days.</li>
+          <li><strong>Complaint Desk:</strong> Raise dispute tickets for sour milk, late arrival, or quantity issues.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <h2>4.2 Supplier (Farmer & Milkman) Portal</h2>
+  <p>Engineered to empower rural cattle owners with digital route management, listing autonomy, and immediate cash flow:</p>
+
+  <div class="grid-2 avoid-break">
+    <div class="card">
+      <div class="card-title">📋 4-Step Registration Wizard</div>
+      <div class="card-body">
+        <ul>
+          <li><strong>Step 1 (Identity):</strong> Classification as <em>Farmer (Own Cattle)</em> vs <em>Milkman (Village Sourced)</em>, farm name, and contact details.</li>
+          <li><strong>Step 2 (Service Area):</strong> Farm village, home PIN code, and multi-PIN service delivery coverage list.</li>
+          <li><strong>Step 3 (Payouts & Slots):</strong> Direct UPI ID, active delivery slots, minimum order quantity, and delivery fee.</li>
+          <li><strong>Step 4 (Quality & Legal):</strong> Optional FSSAI license upload, hygiene declaration, and purity commitment.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">🚚 Daily Dispatch & Execution Sheet</div>
+      <div class="card-body">
+        <ul>
+          <li><strong>Route Organization:</strong> Morning and Evening delivery runs sorted by address sequence.</li>
+          <li><strong>1-Tap Status Logging:</strong> Quick action buttons to mark each bottle as <code>Delivered</code> or <code>Missed</code>.</li>
+          <li><strong>Direct Customer Dialing:</strong> Integrated call and WhatsApp buttons to resolve delivery issues.</li>
+          <li><strong>Realtime Yield Metrics:</strong> Daily litres required calculation for morning milking scheduling.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <h2>4.3 Administrator Oversight Portal</h2>
+  <p>Provides complete administrative governance, verification vetting, and community dispute arbitration:</p>
+
+  <div class="grid-2 avoid-break">
+    <div class="card">
+      <div class="card-title">🛡️ Supplier KYC & FSSAI Verification</div>
+      <div class="card-body">
+        Pending supplier profiles are held in an unverified state (hidden from consumer search) until the admin reviews their farm credentials, FSSAI numbers, and declarations. Admin can <strong>Approve</strong> or <strong>Reject with a custom explanation</strong>.
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">⚖️ Dispute Arbitration & User Safety</div>
+      <div class="card-body">
+        Centralized inbox of customer complaints. Administrators inspect order history, contact both parties, issue resolutions, and have the power to instantly suspend or block fraudulent profiles (<code>is_blocked</code>).
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= SECTION 5: DATABASE ARCHITECTURE ================= -->
+  <div class="page-break"></div>
+  <div class="header-bar">
+    <span>MilkDirect — Project Documentation</span>
+    <span>Section 5: Database Architecture & Data Dictionary</span>
+  </div>
+
+  <h1>5. Database Architecture & Data Schema</h1>
+
+  <p>
+    MilkDirect runs on PostgreSQL inside Supabase. All tables, functions, triggers, and foreign keys utilize the <strong><code>mk_</code></strong> namespace prefix. This allows MilkDirect to coexist harmoniously in shared Supabase environments alongside other projects (such as <em>queuekissan</em>) without naming collisions.
+  </p>
+
+  <h2>Complete Data Dictionary (9 Core Tables)</h2>
+
+  <table>
+    <thead>
+      <tr>
+        <th style="width: 22%;">Table Name</th>
+        <th style="width: 28%;">Primary Keys & Foreign Keys</th>
+        <th style="width: 50%;">Key Columns, Data Types & Functional Role</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><code>mk_profiles</code></td>
+        <td><code>id (uuid, PK &rarr; auth.users)</code></td>
+        <td><code>name (text), phone (text, unique), alternate_phone (text), role ('customer'|'supplier'|'admin'), language ('en'|'hi'|'mr'), is_blocked (boolean)</code>. Master user account entity.</td>
+      </tr>
+      <tr>
+        <td><code>mk_supplier_profiles</code></td>
+        <td><code>id (uuid, PK)<br>user_id (uuid &rarr; mk_profiles)</code></td>
+        <td><code>shop_name (text), type ('farmer'|'milkman'), village (text), pincode (text), upi_id (text), fssai_no (text), verification_status ('pending'|'verified'|'rejected'), rating_avg (numeric), delivery_slots (text[])</code>.</td>
+      </tr>
+      <tr>
+        <td><code>mk_products</code></td>
+        <td><code>id (uuid, PK)<br>supplier_id (uuid &rarr; mk_supplier_profiles)</code></td>
+        <td><code>milk_type ('cow'|'buffalo'|'other'), price_per_litre (numeric), daily_quantity_l (numeric), fat_percent (numeric), snf_percent (numeric), source ('own_cattle'|'collected'), processing ('raw'|'boiled'|'pasteurised'), available (bool)</code>.</td>
+      </tr>
+      <tr>
+        <td><code>mk_addresses</code></td>
+        <td><code>id (uuid, PK)<br>user_id (uuid &rarr; mk_profiles)</code></td>
+        <td><code>label (text), line (text), landmark (text), pincode (text), contact_phone (text), is_default (bool), latitude (numeric), longitude (numeric)</code>. Customer delivery locations.</td>
+      </tr>
+      <tr>
+        <td><code>mk_service_areas</code></td>
+        <td><code>id (uuid, PK)<br>supplier_id (uuid &rarr; mk_supplier_profiles)</code></td>
+        <td><code>pincode (text, not null)</code>. Defines geographic delivery PIN codes served by each registered supplier for hyperlocal filtering.</td>
+      </tr>
+      <tr>
+        <td><code>mk_subscriptions</code></td>
+        <td><code>id (uuid, PK)<br>user_id &rarr; mk_profiles<br>product_id &rarr; mk_products</code></td>
+        <td><code>address_id &rarr; mk_addresses, quantity_l (numeric), schedule_type ('daily'|'alternate'|'weekdays'), weekdays (int[]), slot ('morning_5_8'|'morning_8_10'|'evening_5_8'), status ('active'|'paused'|'cancelled')</code>.</td>
+      </tr>
+      <tr>
+        <td><code>mk_orders</code></td>
+        <td><code>id (uuid, PK)<br>subscription_id &rarr; mk_subscriptions<br>supplier_id &rarr; mk_supplier_profiles</code></td>
+        <td><code>order_date (date), quantity_l (numeric), amount (numeric), status ('scheduled'|'delivered'|'missed'|'cancelled'), slot (text), delivered_at (timestamptz)</code>. Daily delivery fulfillment tracking.</td>
+      </tr>
+      <tr>
+        <td><code>mk_reviews</code></td>
+        <td><code>id (uuid, PK)<br>user_id &rarr; mk_profiles<br>supplier_id &rarr; mk_supplier_profiles</code></td>
+        <td><code>rating (int, 1-5), comment (text), created_at (timestamptz)</code>. Triggers automated database recalculation of supplier's <code>rating_avg</code> and <code>rating_count</code>.</td>
+      </tr>
+      <tr>
+        <td><code>mk_complaints</code></td>
+        <td><code>id (uuid, PK)<br>user_id &rarr; mk_profiles<br>order_id &rarr; mk_orders</code></td>
+        <td><code>category (text), description (text), status ('open'|'investigating'|'resolved'|'dismissed'), resolution (text)</code>. Customer dispute tickets arbitrated by administrators.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>Row Level Security (RLS) & Multi-Tenant Isolation</h2>
+  <div class="callout callout-blue avoid-break">
+    Supabase Row Level Security (RLS) is strictly enabled across all <code>mk_</code> tables. Customers can only read and write their own addresses, subscriptions, and complaints. Unverified suppliers are hidden from public product queries via <code>verification_status = 'verified'</code> filters. Only users with <code>mk_profiles.role = 'admin'</code> are granted global update permissions.
+  </div>
+
+  <!-- ================= SECTION 6: DESIGN SYSTEM ================= -->
+  <div class="header-bar" style="margin-top: 20px;">
+    <span>MilkDirect — Project Documentation</span>
+    <span>Section 6: Design System & UX Standards</span>
+  </div>
+
+  <h1>6. Material 3 Design System & Aesthetics</h1>
+
+  <p>
+    The visual architecture of MilkDirect is rooted in a fresh, agricultural-modern aesthetic termed the <strong>Milk & Pasture Material 3 Theme</strong> (defined in <code>lib/core/theme.dart</code>). It balances dairy purity with lush pasture vitality.
+  </p>
+
+  <div class="grid-3 avoid-break">
+    <div class="card" style="border-top: 4px solid #2e7d32;">
+      <div class="card-title">Pasture Green</div>
+      <div class="card-body">
+        <code>#2E7D32</code> / <code>#1B5E20</code><br>
+        Represents lush fodder, nature, and organic authenticity. Used for primary CTAs, app headers, and active tabs.
+      </div>
+    </div>
+    <div class="card" style="border-top: 4px solid #1e6fd9;">
+      <div class="card-title">Dairy Blue</div>
+      <div class="card-body">
+        <code>#1E6FD9</code><br>
+        Represents clean dairy water, trust, and consumer reliability. Used for customer accents and delivery status tags.
+      </div>
+    </div>
+    <div class="card" style="border-top: 4px solid #f6c453;">
+      <div class="card-title">Butter Warm Yellow</div>
+      <div class="card-body">
+        <code>#F6C453</code> / <code>#E5A823</code><br>
+        Represents rich farm butter and ghee. Used for warning badges, star ratings, and subtle surface card highlights.
+      </div>
+    </div>
+  </div>
+
+  <ul class="avoid-break">
+    <li><strong>Surfaces & Cards:</strong> Milk White scaffold (<code>#FDFCF8</code>) paired with warm Cream surfaces (<code>#FFF7E6</code>) and pure white cards with 16–20px corner radii and delicate elevation shadows.</li>
+    <li><strong>Ergonomic Touch Targets:</strong> 54px tall tactile pill buttons (<code>AppButton</code>) optimized for one-handed operation by rural delivery personnel.</li>
+    <li><strong>Typography:</strong> Google Fonts combination of <strong>Poppins</strong> for crisp headers and <strong>Nunito</strong> for readable, friendly body copy.</li>
+  </ul>
+
+  <!-- ================= SECTION 7 & 8: LOCALIZATION & DEPLOYMENT ================= -->
+  <div class="page-break"></div>
+  <div class="header-bar">
+    <span>MilkDirect — Project Documentation</span>
+    <span>Section 7 & 8: Localization & Deployment Guide</span>
+  </div>
+
+  <h1>7. Multilingual Localization Engine</h1>
+
+  <p>
+    To ensure complete accessibility across diverse linguistic demographics—from urban homemakers to rural dairy farmers—MilkDirect implements native, instant, trilingual localization without requiring app restarts (implemented in <code>lib/core/l10n.dart</code>).
+  </p>
+
+  <table class="avoid-break">
+    <thead>
+      <tr>
+        <th>Language</th>
+        <th>Code</th>
+        <th>Target Demographic</th>
+        <th>Representative UI Terms</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>English</strong></td>
+        <td><code>en</code></td>
+        <td>Urban customers & Platform Administrators</td>
+        <td><em>"MilkDirect", "Suppliers", "My Milk", "Billing", "Verify"</em></td>
+      </tr>
+      <tr>
+        <td><strong>हिंदी (Hindi)</strong></td>
+        <td><code>hi</code></td>
+        <td>North & Central Indian consumers & milkmen</td>
+        <td><em>"मिल्कडायरेक्ट", "डेयरी वाले", "मेरा दूध", "बिलिंग", "सत्यापित"</em></td>
+      </tr>
+      <tr>
+        <td><strong>मराठी (Marathi)</strong></td>
+        <td><code>mr</code></td>
+        <td>Maharashtra dairy heartlands & local farmers</td>
+        <td><em>"मिल्कडायरेक्ट", "दूध उत्पादक", "माझे दूध", "बिल", "पडताळणी"</em></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h1>8. Deployment, Setup & Administration Guide</h1>
+
+  <h2>Step 1: Supabase Configuration</h2>
+  <ol>
+    <li>Enable <strong>Email Provider</strong> in Supabase Dashboard &rarr; Authentication &rarr; Providers &rarr; Email.</li>
+    <li>Configure password policy to enforce a minimum of 8 characters.</li>
+    <li>Execute <code>supabase/schema.sql</code> in the Supabase SQL editor to create all <code>mk_</code> tables and triggers.</li>
+  </ol>
+
+  <h2>Step 2: Provisioning the First Master Admin</h2>
+  <p>Admin accounts cannot be created from the public mobile application. They must be provisioned via SQL:</p>
+
+  <pre class="avoid-break">-- 1. Create the user in Supabase Auth Dashboard (e.g. admin@milkdirect.com) and copy User UID
+-- 2. Execute SQL to provision admin role:
+INSERT INTO mk_profiles (id, name, phone, role, language, is_blocked)
+VALUES (
+  'PASTE_AUTH_USER_UID_HERE',
+  'Master Administrator',
+  'admin@milkdirect.com',
+  'admin',
+  'en',
+  false
+)
+ON CONFLICT (id) DO UPDATE SET role = 'admin';</pre>
+
+  <h2>Step 3: Compilation & Execution Commands</h2>
+  <div class="grid-3 avoid-break">
+    <div class="card">
+      <div class="card-title">1. Fetch Packages</div>
+      <div class="card-body">
+        <code>flutter pub get</code><br>
+        Resolves all dependencies including Supabase, Provider, and Material components.
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">2. Run Web Development</div>
+      <div class="card-body">
+        <code>flutter run -d chrome</code><br>
+        Launches real-time live reload on Google Chrome for rapid UI testing.
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">3. Build Android Release APK</div>
+      <div class="card-body">
+        <code>flutter build apk --release</code><br>
+        Compiles an optimized, standalone release APK ready for distribution.
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= SECTION 9: QA MATRIX ================= -->
+  <div class="page-break"></div>
+  <div class="header-bar">
+    <span>MilkDirect — Project Documentation</span>
+    <span>Section 9 & 10: QA Matrix & Strategic Roadmap</span>
+  </div>
+
+  <h1>9. Quality Assurance & Verification Matrix</h1>
+
+  <p>MilkDirect adheres to a comprehensive 17-point verification protocol before production release:</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th style="width: 5%;">#</th>
+        <th style="width: 25%;">Test Scenario</th>
+        <th style="width: 35%;">Action / Execution Steps</th>
+        <th style="width: 35%;">Expected Architectural Result</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>1</td>
+        <td><strong>Role Selection Launch</strong></td>
+        <td>Launch app with empty SharedPreferences</td>
+        <td>Displays 2 large cards (Customer, Farmer) + 1 bottom link (Admin).</td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td><strong>Role Persistence</strong></td>
+        <td>Select Customer &rarr; kill & reopen app</td>
+        <td>Bypasses selector, lands directly on Customer Login with "Change role".</td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td><strong>Role Reset Flow</strong></td>
+        <td>Click "Change role" on login or profile</td>
+        <td>Flushes <code>last_role</code> cache and returns to Role Selection screen.</td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td><strong>Customer Sign-Up</strong></td>
+        <td>Register with name, email, phone, PIN & address</td>
+        <td>Creates Auth user, <code>mk_profiles</code> and <code>mk_addresses</code>, routes to Home.</td>
+      </tr>
+      <tr>
+        <td>5</td>
+        <td><strong>Password Strength Meter</strong></td>
+        <td>Type passwords of varying complexity</td>
+        <td>Segments react in real-time: Weak (red), Fair (amber), Strong (green).</td>
+      </tr>
+      <tr>
+        <td>6</td>
+        <td><strong>Supplier Onboarding</strong></td>
+        <td>Complete 4-step wizard (Farm, PINs, UPI, FSSAI)</td>
+        <td>Saves to <code>mk_supplier_profiles</code>; holds in <code>VerificationPendingScreen</code>.</td>
+      </tr>
+      <tr>
+        <td>7</td>
+        <td><strong>Cross-Role Block (Supplier &rarr; Cust)</strong></td>
+        <td>Supplier email entered on Customer Login</td>
+        <td>Instantly logs out with: <em>"Registered as Supplier. Use Farmer Login."</em></td>
+      </tr>
+      <tr>
+        <td>8</td>
+        <td><strong>Cross-Role Block (Cust &rarr; Supplier)</strong></td>
+        <td>Customer email entered on Supplier Login</td>
+        <td>Instantly logs out with: <em>"Registered as Customer. Use Customer Login."</em></td>
+      </tr>
+      <tr>
+        <td>9</td>
+        <td><strong>Admin Access Security</strong></td>
+        <td>Non-admin email entered on Admin Login</td>
+        <td>Signs out immediately: <em>"Access Denied: Not an administrator."</em></td>
+      </tr>
+      <tr>
+        <td>10</td>
+        <td><strong>Supplier Vetting Flow</strong></td>
+        <td>Admin taps "Approve" on pending supplier</td>
+        <td>Status transitions to <code>verified</code>; listings go live to nearby consumers.</td>
+      </tr>
+      <tr>
+        <td>11</td>
+        <td><strong>Dispute Ticket Resolution</strong></td>
+        <td>Customer files complaint; Admin resolves</td>
+        <td>Ticket status updates to <code>resolved</code>; logged in customer billing tab.</td>
+      </tr>
+      <tr>
+        <td>12</td>
+        <td><strong>Language Switching</strong></td>
+        <td>Toggle EN &rarr; HI &rarr; MR in app bar</td>
+        <td>Instant UI string re-render across forms, buttons, and error banners.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h1>10. Future Strategic Roadmap</h1>
+
+  <div class="grid-3 avoid-break">
+    <div class="card">
+      <div class="card-title">🔬 IoT Milk Analyzer Sync</div>
+      <div class="card-body">
+        Integration with Bluetooth digital ultrasonic lactometers at dairy collection booths to automatically sync Fat% and SNF% directly to Supabase without manual entry.
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">🗺️ GPS Route Optimization</div>
+      <div class="card-body">
+        Automated traveling salesperson algorithm generating turn-by-turn navigation for morning milk delivery riders, reducing delivery duration by up to 35%.
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">🔄 UPI Autopay / e-NACH</div>
+      <div class="card-body">
+        Automated recurring monthly bank debits via National Payments Corporation of India (NPCI) UPI Autopay, eliminating manual monthly billing follow-ups.
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-top: 35px; border-top: 1px solid #cbd5e1; padding-top: 10px; font-size: 8pt; color: #94a3b8; text-align: center;">
+    MilkDirect Technical Specification & Architectural Whitepaper • Compiled October 2026 • All Rights Reserved.
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,15 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "MilkDirect (Chrome)",
+      "request": "launch",
+      "type": "dart",
+      "deviceId": "chrome",
+      "args": [
+        "--dart-define=SUPABASE_URL=https://nltdtpdrcjmjhkoplwmu.supabase.co",
+        "--dart-define=SUPABASE_ANON_KEY=sb_publishable_bCVUm8RJQZ0Ou1BE042u9w_J8bxMjJ_"
+      ]
+    }
+  ]
+}

@@ -3,11 +3,11 @@
 class AppConfig {
   static const supabaseUrl = String.fromEnvironment(
     'SUPABASE_URL',
-    defaultValue: 'https://nltdtpdrcjmjhkoplwmu.supabase.co',
+    defaultValue: '',
   );
   static const supabaseAnonKey = String.fromEnvironment(
     'SUPABASE_ANON_KEY',
-    defaultValue: 'sb_publishable_bCVUm8RJQZ0Ou1BE042u9w_J8bxMjJ_',
+    defaultValue: '',
   );
 }
 
